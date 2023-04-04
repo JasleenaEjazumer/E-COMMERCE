@@ -8,7 +8,7 @@ const { engine : hbs } = require("express-handlebars")
 var userRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 
-var fileUpload=require('express-fileUpload')
+var fileUpload=require("express-fileupload");
 var db=require('./config/connection')
 var session=require('express-session')
 var app = express();

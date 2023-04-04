@@ -7,13 +7,13 @@
         </button>
         <a class="navbar-brand" href="#">Shopping cart </a>
 
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <div class="collapse navbar-collapse" name="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Products <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cart">Cart</a>
+                    <a class="nav-link" href="/cart">Cart <span class="sr-only">(current)</span></a>
                 </li>
                 {{#if user}}
                 <li class="nav-item">
@@ -21,10 +21,13 @@
                 </li>
                 {{/if}}
             </ul>
-
+        </div>
+        
+        <div class="collapse navbar-collapse" name="navbarTogglerDemo03">
+             
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" style="margin-left: 85rem;">
+                <button class="btn btn-secondary dropdown" type="button" name="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" style="ml-auto">
                     {{#if user}}
                     {{user.Name}}
                     {{else}}
@@ -32,7 +35,7 @@
                     {{/if}}
 
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="ml-auto">
                     {{#if user}}
                     <a class="dropdown-item" href="/logout">Logout</a>
                     {{else}}
@@ -41,6 +44,7 @@
 
 
                 </div>
+                 
             </div>
         </div>
     </nav>

@@ -4,6 +4,13 @@ var router = express.Router();
 const producthelpers = require('../helpers/producthelpers');
 const userHelpers = require('../helpers/user-helpers');
 
+const verifyLogin=(req,res,next)=>{
+  if(req.session.loggedIn){
+    next()
+  }else{
+    res.redirect("/login")
+  }
+} 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   let user = req.session.user
@@ -17,11 +24,12 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/login', (req, res) => {
-  if (req.session.loggedIn) {
+  if (req.session.loggedIn)
+   {
     res.redirect('/')
   } else
     res.render('user/login', { "loginErr": req.session.loginErr })
-  req.session.loginErr = false
+    req.session.loginErr = false
 })
 router.get('/signup', (req, res) => {
   res.render('user/signup')

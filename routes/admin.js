@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 
 
   productHelpers.getAllProducts().then((products)=>{
-  res.render('admin/view-products', { admin:true, products }) 
+  res.render('admin/view-products', {  products }) 
   })
   
 });
@@ -29,7 +29,13 @@ router.post("/add-product", (req, res) => {
     });
   });
 });
-
+router.get('/delete-product/:id',(req,res)=>{
+  let prodId=req.params.id
+  console.log(prodId);
+  productHelpers.deleteProduct(prodId).then((response)=>{
+    res.redirect('/admin/')
+  })
+})
 
 
 module.exports = router;
