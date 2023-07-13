@@ -5,7 +5,7 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/">Shopping cart </a>
+        <a class="navbar-brand" href="/"><i class="fas fa-shopping-cart"></i>Shopping cart </a>
 
         <div class="collapse navbar-collapse" name="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -27,21 +27,22 @@
              
             <div class="dropdown">
                 <button class="btn btn-primary dropdown" type="button" name="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" style="ml-auto">
+                    aria-haspopup="true" aria-expanded="false" style="flex: 1; "  ><i class="fas fa-user"></i>
                     {{#if user}}
                     {{user.Name}}
                     {{else}}
                     Account
                     {{/if}}
-
+                    
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="ml-auto">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                    <i class="fas fa-user"></i>
                     {{#if user}}
                     <a class="dropdown-item" href="/logout">Logout</a>
                     {{else}}
                     <a class="dropdown-item" href="/login">Login</a>
                     {{/if}}
-
+                    <span class="caret"></span>
 
                 </div>
                  

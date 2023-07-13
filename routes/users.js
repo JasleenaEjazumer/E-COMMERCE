@@ -4,15 +4,19 @@ var router = express.Router();
 const producthelpers = require('../helpers/producthelpers');
 const userHelpers = require('../helpers/user-helpers');
 const { PRODUCT_COLLECTION } = require('../config/collections');
-
-
-const verifyLogin=(req,res,next)=>{
-  if(req.session.loggedIn){
-    next()
-  }else{
-    res.redirect("/login")
+const verifyLogin = (req, res, next) => {
+  if (req.session.user) { // Check if user object exists
+    req.session.user.loggedIn = true; // Set the loggedIn property
+    if (req.session.user.loggedIn) {
+      next();
+    } else {
+      res.redirect("/login");
+    }
+  } else {
+    res.redirect("/login");
   }
-} 
+};
+
 /* GET home page. */
 router.get('/', async function (req, res, next) {
   let user = req.session.user
@@ -29,22 +33,23 @@ router.get('/', async function (req, res, next) {
   )
 });
 
-router.get('/login', (req, res) => {
-  if (req.session.loggedIn)
-   {
-    res.redirect('/')
-  } else
-    res.render('user/login', { "loginErr": req.session.loginErr })
-    req.session.loginErr = false
-})
+  router.get('/login', (req, res) => {
+    if (req.session.user)
+    {
+      res.redirect('/')
+    } else
+      res.render('user/login', { "loginErr": req.session.userloginErr })
+      req.session.userloginErr = false
+  })
 router.get('/signup', (req, res) => {
   res.render('user/signup')
 })
 router.post('/signup', (req, res) => {
   userHelpers.doSignup(req.body).then((response) => {
     console.log(response);
-    req.session.loggedIn = true
-      req.session.user = response
+    req.session.user = response
+    req.session.user.loggedIn = true
+      
     res.redirect('/login')
   })
 
@@ -53,17 +58,18 @@ router.post('/signup', (req, res) => {
 router.post('/login', (req, res) => {
   userHelpers.doLogin(req.body).then((response) => {
     if (response.status) {
-      req.session.loggedIn = true
+      
       req.session.user = response.user
+      req.session.user.loggedIn = true
       res.redirect('/')
     } else {
-      req.session.loginErr = "Invalid user name or password"
+      req.session.userloginErr = "Invalid user name or password"
       res.redirect('/login')
     }
   })
 
   router.get('/logout', (req, res) => {
-    req.session.destroy()
+    req.session.user=null
     res.redirect('/')
   })
 
